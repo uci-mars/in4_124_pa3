@@ -1,0 +1,114 @@
+/*import from google fonts*/
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap's);
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    background-color: #24272a;
+    margin: 0;
+    background: url(../assets/images/ornn-bg.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+
+.lore {
+    display: block;
+    border-width: 2px 0;
+    border-style: solid;
+    border-color: #f0e6d2;
+    padding: 3.5em 0 2em;
+    margin: 1.5em 0;
+    position: relative;
+    line-height: 1.4em;
+    color: #f0e6d2;
+}
+
+
+.lore:before {
+  content: '\201C';
+  position: absolute;
+  left: 50%;
+  top: 30px;
+  transform: translate(-50%, -50%);
+  width: 3rem;
+  height: 2rem;
+  font: 6em/1.08em 'PT Sans', sans-serif;
+  color: #f0e6d2;
+  text-align: center;
+    
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 8px;
+    color: white;
+    font-size: 14px
+}
+
+p span{
+    font-weight: lighter;
+    font-size: 12px;
+    opacity: 80%;
+}
+
+.content-container {
+    font-family: LegendOfLegendsFont;
+    font-size: 18px;
+    width: 600px;
+    text-align: left;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    float: right;
+    margin: auto;
+    margin-top: 180px;
+
+}
+
+.container {
+    height: 100%;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+
+.team-members-img {
+    width: 150px;
+    border-radius: 50%;
+}
+
+.team-members-badge {
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    margin: auto;
+}
+
+#team {
+    height: 80vh; 
+    margin-top: 160px; 
+    display: flex; 
+    flex-direction: column;
+}
+
+.team-members-container {
+    display: flex; 
+    justify-content: center; 
+    text-align: center; 
+    margin: auto 0;
+    
+}
+a{
+    text-decoration: none;
+    color: white;
+}

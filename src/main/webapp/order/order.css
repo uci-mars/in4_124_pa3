@@ -1,0 +1,46 @@
+label {
+    color: #c8aa6e;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    display: flex;
+}
+
+input[type=text], input[type=tel], input[type=email] {
+    padding: 8px;
+    margin: 8px 0;
+    width: 100%;
+    background-color: #151e2980;
+    border: 2px solid #c8aa6e30;
+    color: #fff;
+}
+
+input[type=submit]{
+    font-family: LegendOfLegendsFont;
+    color: #fff;
+    font-size: 18px;
+    background-color: #dc4261;
+    border: none;
+    border-radius: 0;
+    width: 200px;
+    padding: 12px 24px;
+    display: block;
+    margin: auto;
+}
+
+select {
+    margin: 8px 0 0 0;
+    padding: 8px;
+    font-size: 12px;
+    background-color: #151e2980;
+    border: 2px solid #c8aa6e30;
+    color: white;
+    width: 100%;
+}
+
+table {
+    background-color: #151e2980;
+    border: 2px solid #c8aa6e30;
+    border-radius: 2px;
+    color: #fff;
+}

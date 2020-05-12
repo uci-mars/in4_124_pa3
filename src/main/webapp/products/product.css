@@ -1,0 +1,158 @@
+/*import from google fonts*/
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+body{
+    font-family: 'Montserrat', sans-serif;
+    background-color: #24272a;
+    margin: 0;
+    background: url(../assets/images/product-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 8px;
+    color: white;
+    font-size: 14px
+}
+
+.container {
+    font-family: LegendOfLegendsFont;
+    height: 100%;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.item-stats {
+    width: 600px;
+    padding: 15px;
+    border-radius: 0.5rem;
+    border: 2px solid #958d69;
+    text-align: justify;
+    margin: 0 auto;
+    background-color:#17365d;
+}
+
+.gold-img {
+    width: 20px;
+    height: 15px;
+    transition:all 0.25s ease;
+}
+
+table{
+    padding-top: 10px;
+    margin: auto;
+    /*background-color: darkred;*/
+    text-align: center;
+}
+
+.item-container {
+    padding-top: 20px;
+    background-color: #151e2980;
+    width: 200px;
+    height: 155px;
+    text-align:center; 
+    border: 4px solid #c8aa6e30;
+}
+
+.item-img:hover {
+    width: 80px;
+    height: 80px;
+}
+
+.item-img {
+    height: 70px;
+    width: 70px;
+    transition:all 0.25s ease;
+    display: flex;
+    margin: auto;
+}
+
+.item-img-container {
+    width: 80px; 
+    height: 80px;
+    display: flex;
+    margin: auto;
+}
+
+tr {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+td {
+   padding: 1rem 2rem; 
+   margin: auto;
+}
+
+th {
+    padding: 1rem 0 .5rem;
+}
+
+a {
+    color: #dc4261;
+    text-decoration: none;
+}
+
+ul {
+    padding: 0;
+}
+
+.item-table-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    width: 100%;
+}
+form{
+    color: white;
+    padding: 1rem;
+}
+
+.category-label {
+    color: #c8aa6e; 
+    text-transform: uppercase;
+}
+
+.page-title {
+    width: 100%; 
+    text-align: center; 
+    color: #c8aa6e; 
+    margin-bottom: 8px;
+}
+
+.search-container {
+    display: flex;
+    margin-top: 0 auto;
+    width: 100%;
+}
+
+#search {
+    padding: 8px;
+    margin: 8px 40px;
+    width: 100%;
+    background-color: #151e2980;
+    border: 2px solid #c8aa6e30;
+    color: #fff;
+    font-size: 24px;
+}
+
+.content-container {
+    max-width: 1000px;
+    width: 90vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}

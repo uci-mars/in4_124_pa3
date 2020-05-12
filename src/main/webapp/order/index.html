@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Order</title>
+
+        <script type="text/javascript" src="form.js"></script>
+        <link rel="stylesheet" href="../products/product.css">
+        <link rel="stylesheet" href="../navbar.css">
+        <link rel="stylesheet" href="order.css">
+    </head>
+    
+    <body onload="updateTotal()">
+      <div class="container">
+        <div class="navbar">
+            <a href="..">
+                <div class="logo-container">
+                    <img id="logo" src="../assets/images/ornn-logo.png">
+                    <h1 id="text-logo">ORNN'S<br/>
+                    <span style="font-size: 18px">WORKSHOP</span></h1>
+                </div>
+            </a>
+
+            <div class="nav-container">
+                <a href="../products">Our Products</a>
+                <a href="../about">About us</a>
+                <a href="../about#team">Our Team</a>
+                <a href="../order"><img style="height: 20px" src="../assets/images/cart.svg"></a>
+            </div>
+        </div>
+        
+       <div style="margin-top: 120px">
+            <h2 style="width: 100%; text-align: center; color: #f0e6d2; margin-bottom: 8px">ORDER FORM</h2>
+        </div>
+          
+        <div style="width: 500px; display: flex; flex-direction: column; margin: auto; margin-top: 40px;">
+            <form action="sendorder.php" name="order" onSubmit="return processPurchaseForm()" method="post">
+                
+         <div style="display: flex; flex-direction: row; margin-bottom: 16px">
+            <div style="display: flex; flex-direction: column; width: 70%;">
+                <label for="item">Choose item</label>
+                <select id="item" name="item" onchange="updateItemCost()">
+                    <option value='' disabled selected style="display:none;">Select Item</option>
+                    <option value='Oracle Lens'>Oracle Lens</option>
+                    <option value='Warding Totem'>Warding Totem</option>
+                    <option value='Health Potion'>Health Potion</option>
+                    <option value='Mana Potion'>Mana Potion</option>
+                    <option value='Duskblade of Draktharr'>Duskblade of Draktharr</option>
+                    <option value='Youmuu&#39s Ghostblade'>Youmuu&#39s Ghostblade</option>
+                    <option value='Rabadon&#39s Deathcap'>Rabadon&#39s Deathcap</option>
+                    <option value='Luden&#39s Echo'>Luden&#39s Echo</option>
+                    <option value='Sunfire Cape'>Sunfire Cape</option>
+                    <option value='Spirit Visage'>Spirit Visage</option>
+                    <option value='Ionian Boots of Lucidity'>Ionian Boots of Lucidity</option>
+                    <option value='Berserker&#39s Greaves'>Berserker&#39s Greaves</option>
+                </select>   
+            </div>
+            <div style="display: flex; flex-direction: column; width: 30%; margin-left: 16px;">
+                <label for="quantity">Choose amount</label>
+                <select id="quantity" name="quantity" onchange="updateItemCost()">
+                    <option value='' disabled selected style="display:none;">Amount</option>
+                    <option value='1'>1</option>
+                    <option value='2'>2</option>
+                    <option value='3'>3</option>
+                    <option value='4'>4</option>
+                    <option value='5'>5</option>
+                    <option value='6'>6</option>
+                    <option value='7'>7</option>
+                    <option value='8'>8</option>
+                    <option value='9'>9</option>
+                    <option value='10'>10</option>
+                </select>
+            </div>
+        </div>
+
+        <div style="display: flex; flex-direction: row; margin-bottom: 16px;">
+            <label style="margin: auto; margin-left: 0; margin-right: 12px">Delivery Method </label>
+            <div style="display: flex; flex-direction: row; margin: auto">
+                <input type="radio" id="overnight" name="deliv" required checked onchange="updateTotal()" value="overnight">
+                <label for="overnight" style="margin: auto; margin-left: 6px; margin-right: 26px">Overnight</label>
+            </div>
+            <div style="display: flex; flex-direction: row; margin: auto">
+                <input type="radio" id="2day" name="deliv" onchange="updateTotal()" value="2day">
+                <label for="2day" style="margin: auto;  margin-left: 6px">2-days expedited</label>            
+            </div>
+            <div style="display: flex; flex-direction: row; margin: auto">
+                <input type="radio" id="6day" name="deliv" onchange="updateTotal()" value="6day">
+                <label for="6day" style="margin: auto;  margin-left: 6px">6-days ground</label>
+            </div>
+
+        </div>
+
+
+        <label for="fname">Full name</label>
+        <input type="text" id="fname" name="fname" required>
+                
+        <div style="display: flex; flex-direction: row">
+            <div style="display: flex; flex-direction: column; width: 50%;">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="peter@uci.edu" required>    
+            </div>
+            <div style="display: flex; flex-direction: column; width: 50%; margin-left: 46px;">
+                <label for="phoneNum">Phone number</label>
+                <input type="tel" id="phoneNum" name="phoneNum" required maxlength="11" minlength="10" placeholder="(123)456-7890">
+            </div>
+        </div>
+
+          
+        <div style="display: flex; flex-direction: row">
+            <div style="display: flex; flex-direction: column; width: 50%;">
+                <label for="street">Street Address</label>
+                <input type="text" id="street" name="street" placeholder="510 E Peltason Dr." required>
+            </div>
+            <div style="display: flex; flex-direction: column; width: 50%; margin-left: 46px;">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" placeholder="Irvine" required>
+            </div>
+        </div>
+        
+
+                
+        <div style="display: flex; flex-direction: row">
+            <div style="display: flex; flex-direction: column; width: 33%;">
+                <label for="state">State</label>
+                <input type="text" id="state" name="state" placeholder="California" required>
+            </div>
+            <div style="display: flex; flex-direction: column; width: 23%; margin-left: 46px;">
+                <label for="zip">ZIP</label>
+                <input type="text" id="zip" name="zip" placeholder="92612" onblur= "updateZip(this.value)"required>
+            </div>
+            <div style="display: flex; flex-direction: column; width: 33%; margin-left: 46px;">
+                <label for="country">Country/Reigion</label>
+                <input type="text" id="country" name="country" placeholder="United States" required>
+            </div>
+        </div>
+                
+
+        <div style="display: flex; flex-direction: row">
+            <div style="display: flex; flex-direction: column; width: 60%;">
+                <label for="ccard">Credit card Number</label>
+                <input type="text" id="ccard" name="ccard" minlength="16" maxlength="20" required>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; width: 30%; margin-left: 46px;">
+                    <label for="exDate">Expiration date</label>
+                    <div style="display: flex; flex-direction: row">
+                        <input type="text" id="exMonth" name="exMonth" size="2" placeholder="MM" minlength="2" maxlength="2" required>
+                        <label style="margin: auto; font-size: 18px;">/</label>
+                        <input type="text" id="exYr" name="exYr" size="4" placeholder="YY" minlength="2" maxlength="4"required>
+                    </div>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; width: 10%; margin-left: 26px;">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" name="cvv" size="3" minlength="3" maxlength="4" placeholder="000" required>
+            </div>
+        </div>
+
+        <br><br>
+        <!-- <input type="submit" value="Submit"> -->
+        <div style="font-size: 1.1rem">
+            <p>item(s): $<span id="itemTotal">0</span></p>
+            <p>tax: $<span id="taxTotal">0</span></p>
+            <p>shipping: $<span id="shippingTotal">0</span></p>
+        </div>
+        
+        <div style="display: flex; flex-direction: row;">
+            <p style="font-size: 1.7rem" style="display: flex; flex-direction: column; width: 70%;">Total: $<span id="totalPrice">0</span></p>
+        <input type="submit" value="Order" style="display: flex; flex-direction: column; width: 22%;  margin-right: 0">
+        </div>
+        
+    </form>
+        </div>
+
+       
+        </div>
+
+    </body>
+</html>

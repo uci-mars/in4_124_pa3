@@ -1,0 +1,71 @@
+@font-face {
+    font-family: LegendOfLegendsFont;
+    src: url(assets/font/FrizQuadrataRegular.ttf);
+}
+
+.logo-container {
+    display: flex;
+    padding: 15px 32px;
+}
+
+.logo-container #logo {
+    height: 48px;
+    width: 70px;
+    margin-top: -10px;
+}
+
+.navbar {
+    z-index: 300;
+    position: fixed;
+    background-color: white;
+    width: 100vw;
+    height: 60px;
+    display: flex;
+    box-shadow: 0 0 16px -4px rgba(0,0,0,.2);
+    text-align: center;
+}
+
+.navbar .nav-container {
+    font-family: LegendOfLegendsFont;
+    display: flex;
+    margin: auto;
+    margin-right: 0;
+}
+
+.navbar a{
+    margin: 0;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar #text-logo {
+    font-family: LegendOfLegendsFont;
+    font-size: 20pt;
+    padding: 0 8px;
+    line-height: 12pt;
+    color: #dc4261;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-container {
+    padding: 0 32px;
+}
+
+
+.nav-container a{
+    padding: 12px;
+    color: #24272a;
+    margin: auto;
+    text-decoration: none;
+}
+
+.nav-container .active{
+    color: #dc4261;
+}
+
+.nav-container a:hover{
+    color: #dc4261;
+    fill: #dc4261;
+}
