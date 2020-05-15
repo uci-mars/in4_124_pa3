@@ -36,7 +36,7 @@ public class Item extends HttpServlet {
             Connection conn = new SQLConnection().connect();
             int cost = 100000;
             String itemName = "item name";
-            String img = "asset/deathcap.png";
+            String img = "assets/deathcap.png";
             String description = "test des";
             //TODO FIX CONNECTION WHEN GET DRIVER IN
             
@@ -107,7 +107,8 @@ public class Item extends HttpServlet {
             out.println("</p>");
 
             //TODO REDIRECT THIS TO THE SHOPPING CART SERVLET
-            out.println("<a href=\"" + request.getContextPath() + "/order" +"\">");
+            out.println("<a href=\"AddToCart\">");
+            //out.println("<a href=\"" + request.getContextPath() + "/order" +"\">");
                 out.println("<section class=\"product-button\">");
                 out.println("<span>ADD TO CART</span>");
                 out.println("</section>");
