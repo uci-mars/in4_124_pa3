@@ -10,13 +10,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author zhiyi
  */
-public class TestServlet extends HttpServlet {
+public class AddToCart extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -27,32 +26,18 @@ public class TestServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    //Integer i = new Integer(0);
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession s = request.getSession (true);
-        TestObj i = (TestObj) s.getAttribute("ii");
-        if(i == null)
-            s.setAttribute("ii", new TestObj());
-        
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>Servlet AddToCart</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
-         
-            out.println("<p>" + i.toString() +"</p>");
-            i.inc();
-            s.setAttribute("ii", i);
-            out.println("<img src=\" " + request.getContextPath() + "/assets/images/ornn-logo.png\">");
+            out.println("<h1>Servlet AddToCart at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }

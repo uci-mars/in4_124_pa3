@@ -15,7 +15,7 @@
         <div class="navbar">
             <a href="..">
                 <div class="logo-container">
-                    <img id="logo" src="../../in4_124/assets/images/ornn-logo.png">
+                    <img id="logo" src="../assets/images/ornn-logo.png">
                     <h1 id="text-logo">ORNN'S<br/>
                     <span style="font-size: 18px">WORKSHOP</span></h1>
                 </div>
@@ -25,7 +25,7 @@
                 <a class="active" href="../products">Our Products</a>
                 <a href="../about">About us</a>
                 <a href="../about#team">Our Team</a>
-                <a href="../order"><img style="height: 20px" src="../../in4_124/assets/images/cart.svg"></a>
+                <a href="../order"><img style="height: 20px" src="../assets/images/cart.svg"></a>
             </div>
         </div>
 

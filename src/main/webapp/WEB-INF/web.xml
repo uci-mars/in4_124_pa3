@@ -4,9 +4,27 @@
         <servlet-name>TestServlet</servlet-name>
         <servlet-class>TestServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Item</servlet-name>
+        <servlet-class>Item</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddToCart</servlet-name>
+        <servlet-class>AddToCart</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TestServlet</servlet-name>
         <url-pattern>/TestServlet</url-pattern>
+        <url-pattern>/about/TestServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Item</servlet-name>
+        <url-pattern>/Item</url-pattern>
+        <url-pattern>/products/Items</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCart</servlet-name>
+        <url-pattern>/AddToCart</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
