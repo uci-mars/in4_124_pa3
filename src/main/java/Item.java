@@ -1,12 +1,6 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,24 +17,34 @@ public class Item extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    
+        
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
         //int itemID = Integer.parseInt(request.getParameter("id"));
         int itemId = 1;
-       
+        String driver = "com.sql.cj.jdbc.Driver";
+        String url = "jdbc:mysql://circinus-39.ics.uci.edu:3306/s2020Iae?serverTimezone=UTC";
+        String username = "root";
+        String pass = "bl0b-39";
        
         try (PrintWriter out = response.getWriter()) {
             //get db stuff
-            //Connection conn = new SQLConnection().connect();
+            Class.forName("com.sql.cj.jdbc.Driver");
+            //Connection conn = DriverManager.getConnection(url,username,pass);
+            log("eeeeeeeeeeee");
+            
             int cost = 100000;
             String itemName = "item name";
             String img = "assets/deathcap.png";
             String description = "test des";
             //TODO FIX CONNECTION WHEN GET DRIVER IN
             
-            /*Statement statement = conn.createStatement();
+           /*Statement statement = conn.createStatement();
             String query = "SELECT * FROM items WHERE itemId = " + itemId;
             ResultSet rs = statement.executeQuery(query);
             
@@ -50,12 +54,12 @@ public class Item extends HttpServlet {
             String img = rs.getString("img");
             int cost = rs.getInt("costs");
             String description = rs.getString("itemDescription");
-            
-            
-            rs.close();
-            statement.close();
-            SQLConnection.disconnect(conn);
             */
+            
+            //rs.close();
+            //statement.close();
+            //SQLConnection.disconnect(conn);
+            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -122,7 +126,8 @@ public class Item extends HttpServlet {
         //} catch (SQLException ex) {
          //   Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
         }catch(Exception e){
-            System.out.println("ASDASD");
+            log("ASDASD");
+            log(e.toString());
         }
     }
 

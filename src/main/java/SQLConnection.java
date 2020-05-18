@@ -22,12 +22,10 @@ import java.sql.Connection;
 public class SQLConnection {
     
         
-      // JDBC driver name and database URL
-    final String DBURL="jdbc:mysql://circinus-39.ics.uci.edu:3306/s2020Iae";
-
-      //  Database credentials
-    final String NAME = "root";
-    final String PASS = "bl0b-39";
+    String driver = "com.sql.cj.jdbc.Driver";
+    String url = "jdbc:mysql://circinus-39.ics.uci.edu:3306/s2020Iae?serverTimezone=UTC";
+    String username = "root";
+    String pass = "bl0b-39";
         
         /*
 hostname: circinus-39.ics.uci.edu
@@ -39,20 +37,13 @@ $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
     */
     public Connection connect()
     {
-        Connection conn = null;
-      
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(DBURL, NAME, PASS);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SQLConnection.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("ASD");
+            Connection conn = DriverManager.getConnection(url,username,pass);
+            return conn;
         } catch (SQLException ex) {
             Logger.getLogger(SQLConnection.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("eeeeeeee");
         }
-     return conn;
-     
+        return null;
     }
     
     public static void disconnect(Connection conn)
