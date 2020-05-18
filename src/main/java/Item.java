@@ -33,7 +33,7 @@ public class Item extends HttpServlet {
        
         try (PrintWriter out = response.getWriter()) {
             //get db stuff
-            Connection conn = new SQLConnection().connect();
+            //Connection conn = new SQLConnection().connect();
             int cost = 100000;
             String itemName = "item name";
             String img = "assets/deathcap.png";
@@ -67,8 +67,8 @@ public class Item extends HttpServlet {
             out.println("</head>");
      
             out.println("<body>");
-            if(conn == null) out.println("<h1>null</h1>");
-            else out.println("<h1>asdasfaaaaaaaaaaaaaaaaaaaaaaahhah</h1>");
+            //if(conn == null) out.println("<h1>null</h1>");
+            //else out.println("<h1>asdasfaaaaaaaaaaaaaaaaaaaaaaahhah</h1>");
             
             
                 out.println("<div class=\"container\">");
@@ -119,8 +119,8 @@ public class Item extends HttpServlet {
             out.println("</body>");
             out.println("</html>");
             
-        } catch (SQLException ex) {
-            Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
+        //} catch (SQLException ex) {
+         //   Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
         }catch(Exception e){
             System.out.println("ASDASD");
         }

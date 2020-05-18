@@ -36,6 +36,10 @@ public class TestServlet extends HttpServlet {
         
         HttpSession s = request.getSession (true);
         HashMap<Integer, Integer> cart = (HashMap<Integer, Integer>) s.getAttribute("cart");
+        if(cart == null){
+            cart = new HashMap<Integer, Integer>();
+            //s.setAttribute("cart", new HashMap<String,Integer>());
+        }
     //TestObj i = (TestObj) s.getAttribute("ii");
         //if(i == null)
         //    s.setAttribute("ii", new TestObj());
