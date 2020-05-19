@@ -26,24 +26,16 @@ public class SQLConnection {
     String url = "jdbc:mysql://circinus-39.ics.uci.edu:3306/s2020Iae?serverTimezone=UTC";
     String username = "root";
     String pass = "bl0b-39";
-        
-        /*
-hostname: circinus-39.ics.uci.edu
-port: 3306
-username: root
-name: s2020Iae
-password: bl0b-39
-$conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-    */
+    Connection conn = null;
     public Connection connect()
     {
         try {
-            Connection conn = DriverManager.getConnection(url,username,pass);
-            return conn;
-        } catch (SQLException ex) {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(url,username,pass);
+        } catch (Exception ex) {
             Logger.getLogger(SQLConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return conn;
     }
     
     public static void disconnect(Connection conn)

@@ -1,6 +1,9 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,17 +37,17 @@ public class Item extends HttpServlet {
        
         try (PrintWriter out = response.getWriter()) {
             //get db stuff
-            Class.forName("com.sql.cj.jdbc.Driver");
+            //Class.forName("com.sql.cj.jdbc.Driver");
             //Connection conn = DriverManager.getConnection(url,username,pass);
-            log("eeeeeeeeeeee");
             
-            int cost = 100000;
+            
+            /*int cost = 100000;
             String itemName = "item name";
             String img = "assets/deathcap.png";
-            String description = "test des";
+            String description = "test des";*/
             //TODO FIX CONNECTION WHEN GET DRIVER IN
-            
-           /*Statement statement = conn.createStatement();
+            Connection conn = new SQLConnection().connect();
+            Statement statement = conn.createStatement();
             String query = "SELECT * FROM items WHERE itemId = " + itemId;
             ResultSet rs = statement.executeQuery(query);
             
@@ -54,11 +57,11 @@ public class Item extends HttpServlet {
             String img = rs.getString("img");
             int cost = rs.getInt("costs");
             String description = rs.getString("itemDescription");
-            */
             
-            //rs.close();
-            //statement.close();
-            //SQLConnection.disconnect(conn);
+            
+           rs.close();
+           statement.close();
+           SQLConnection.disconnect(conn);
             
             out.println("<!DOCTYPE html>");
             out.println("<html>");
