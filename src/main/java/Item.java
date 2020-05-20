@@ -3,10 +3,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +20,10 @@ public class Item extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    
+        
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -30,17 +31,9 @@ public class Item extends HttpServlet {
         //int itemID = Integer.parseInt(request.getParameter("id"));
         int itemId = 1;
        
-       
         try (PrintWriter out = response.getWriter()) {
-            //get db stuff
-            //Connection conn = new SQLConnection().connect();
-            int cost = 100000;
-            String itemName = "item name";
-            String img = "assets/deathcap.png";
-            String description = "test des";
-            //TODO FIX CONNECTION WHEN GET DRIVER IN
-            
-            /*Statement statement = conn.createStatement();
+            Connection conn = new SQLConnection().connect();
+            Statement statement = conn.createStatement();
             String query = "SELECT * FROM items WHERE itemId = " + itemId;
             ResultSet rs = statement.executeQuery(query);
             
@@ -52,10 +45,10 @@ public class Item extends HttpServlet {
             String description = rs.getString("itemDescription");
             
             
-            rs.close();
-            statement.close();
-            SQLConnection.disconnect(conn);
-            */
+           rs.close();
+           statement.close();
+           SQLConnection.disconnect(conn);
+            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -105,16 +98,34 @@ public class Item extends HttpServlet {
             out.println("<p id=\"product-description\">");
             out.println(description);
             out.println("</p>");
-
-            //TODO REDIRECT THIS TO THE SHOPPING CART SERVLET
-            out.println("<a href=\"AddToCart\">");
-            //out.println("<a href=\"" + request.getContextPath() + "/order" +"\">");
+            
+            out.println("<form name=\"orderForm\" method=\"post\" action=\"AddToCart\">");
+            out.println("<input type=\"hidden\" name=\"itemId\" value=\"" + itemId +"\"/>");
+            out.println("<div>\n" +
+"                <label for=\"quantity\">Choose amount</label>\n" +
+"                <select id=\"quantity\" name=\"quantity\">\n" +
+"                    <option value='1'>1</option>\n" +
+"                    <option value='2'>2</option>\n" +
+"                    <option value='3'>3</option>\n" +
+"                    <option value='4'>4</option>\n" +
+"                    <option value='5'>5</option>\n" +
+"                    <option value='6'>6</option>\n" +
+"                    <option value='7'>7</option>\n" +
+"                    <option value='8'>8</option>\n" +
+"                    <option value='9'>9</option>\n" +
+"                    <option value='10'>10</option>\n" +
+"                </select>\n" +
+"            </div>");
+  
+            out.println("<input type=\"submit\" value=\"Order\" style=\"\">");
+            /*out.println("<a href=\"AddToCart\">");
                 out.println("<section class=\"product-button\">");
                 out.println("<span>ADD TO CART</span>");
-                out.println("</section>");
+            out.println("</section>");
            
             out.println("</a>");
-                        
+              */
+            out.println(" </form>");
             out.println("</div>");
             out.println("</body>");
             out.println("</html>");
@@ -122,7 +133,8 @@ public class Item extends HttpServlet {
         //} catch (SQLException ex) {
          //   Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
         }catch(Exception e){
-            System.out.println("ASDASD");
+            log("ASDASD");
+            log(e.toString());
         }
     }
 

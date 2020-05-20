@@ -34,12 +34,12 @@ public class TestServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        HttpSession s = request.getSession (true);
-        HashMap<Integer, Integer> cart = (HashMap<Integer, Integer>) s.getAttribute("cart");
+        //HttpSession s = request.getSession (true);
+        /*HashMap<Integer, Integer> cart = (HashMap<Integer, Integer>) s.getAttribute("cart");
         if(cart == null){
             cart = new HashMap<Integer, Integer>();
             //s.setAttribute("cart", new HashMap<String,Integer>());
-        }
+        }*/
     //TestObj i = (TestObj) s.getAttribute("ii");
         //if(i == null)
         //    s.setAttribute("ii", new TestObj());
@@ -56,10 +56,12 @@ public class TestServlet extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
          
-            for (int item : cart.keySet()){
+            /*for (int item : cart.keySet()){
                 out.println("<p> itiem id: " + item + " amount: " + cart.get(item) + "</p>");
                 //out.println("</p>");
-            }
+            }*/
+            out.println("<h1>" + request.getParameter("itemId")+"</h1>");
+            out.println("<h1>" + request.getParameter("quantity")+"</h1>");
             /*out.println("<p>" + i.toString() +"</p>");
             i.inc();
             s.setAttribute("ii", i);

@@ -88,7 +88,7 @@ function validAddr() {
 function updateTotal(){
     var sum = 0;
     sum += parseFloat(document.getElementById("itemTotal").innerHTML);
-    sum += parseFloat(document.getElementById("taxTotal").innerHTML);
+    //sum += parseFloat(document.getElementById("taxTotal").innerHTML);
     sum += getShipping();
     document.getElementById("shippingTotal").innerHTML = getShipping();
 

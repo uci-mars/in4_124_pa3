@@ -32,10 +32,10 @@ public class AddToCart extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        //int itemId = request.getParameter("itemId");
-        int itemId = 1;
-        //int amt = request.getParameter("amt");
-        int amt = 2;
+        int itemId = Integer.parseInt(request.getParameter("itemId"));
+        //int itemId = 1;
+        int amt = Integer.parseInt(request.getParameter("quantity"));
+        //int amt = 2;
         HttpSession s = request.getSession (true);
         HashMap<Integer, Integer> cart = (HashMap<Integer, Integer>) s.getAttribute("cart"); //adds id, amount to cart
         /*TestObj i = (TestObj) s.getAttribute("ii");
