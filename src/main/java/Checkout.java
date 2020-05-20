@@ -6,7 +6,13 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +39,8 @@ public class Checkout extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         
+        double totalItemCost = 0;
+        
         HttpSession s = request.getSession (true);
         HashMap<Integer, Integer> cart = (HashMap<Integer, Integer>) s.getAttribute("cart");
         if(cart == null){
@@ -48,11 +56,13 @@ public class Checkout extends HttpServlet {
                 out.println("<meta charset=\"UTF-8\">");
                 out.println(" <title>Checkout</title>");
                 out.println("<script type=\"text/javascript\" src=\"" + request.getContextPath() + "/order/form.js" + "\"></script>");
-                out.println("<link rel=\"stylesheet\" href=\"" + request.getContextPath() + "/products/item.css" + "\">");
+                out.println("<link rel=\"stylesheet\" href=\"" + request.getContextPath() + "/order/order.css" + "\">");
                 out.println("<link rel=\"stylesheet\" href=\"" + request.getContextPath() + "/products/product.css" + "\">");
                 out.println("<link rel=\"stylesheet\" href=\"" + request.getContextPath() + "/navbar.css" + "\">");
             out.println("</head>");
-            out.println("<body>");
+            
+                     
+            out.println("<body onload = \"updateTotal()\">");
             out.println("<div class=\"container\">");
                 out.println("<div class=\"navbar\">");
                     out.println("<a href=\""+ request.getContextPath() + "\">");
@@ -77,11 +87,42 @@ public class Checkout extends HttpServlet {
                         + "<div style=\"margin-top: 120px\">"); 
                 out.println("<h2 style=\"width: 100%; text-align: center; color: #f0e6d2; margin-bottom: 8px\">ORDER FORM</h2>\n" +
                     "        </div>");
+                
+                
+                
+                
                  //show cart
-                for (int item : cart.keySet()){
-                    out.println("<h4 style=\"text-align: center; color: #f0e6d2\" > item id: " + item + " amount: " + cart.get(item) + "</h4>");
-                    //out.println("</p>");
+                Connection conn = new SQLConnection().connect();
+                Statement statement = conn.createStatement();
+                               
+                if(cart.size() == 0){
+                    out.println("<h3 style =\"text-align: center; color: #f0e6d2\"> Your cart is empty </h3>");
+                }else{
+                    out.println("<table>");
+                    //out.println("<tr> <th style =\" color: #f0e6d2\">item</th>\n <th style =\" color: #f0e6d2\">amount</th> </tr>");
+                    for (int itemId : cart.keySet()){
+                        String query = "SELECT * FROM items WHERE itemId = " + itemId;
+                        ResultSet rs = statement.executeQuery(query);
+                        rs.next();
+                        String itemName = rs.getString("itemName");
+                        String img = rs.getString("img");
+                        int cost = rs.getInt("costs");
+                        out.println("<h3 style =\"text-align: center; color: #f0e6d2\"> Cart </h3>");
+                        out.println("<tr>");
+                            out.println("<td> <p style=\"text-align: center; color: #f0e6d2\" >" + itemName + "</p>");
+                            out.println("<img src=\"" + request.getContextPath() + "/products/" + img + "\"><td>");
+                            out.println("<td><span id=\"product-cost\" style=\"color: white\">&nbsp; amount: " + cart.get(itemId) + "</span><td>");
+                        out.println("</tr>");
+                        totalItemCost += cost*cart.get(itemId);
+                        rs.close();
+                    }
+                    out.println("</table>");
+                    
                 }
+               
+                statement.close();
+                SQLConnection.disconnect(conn);
+               
                 out.println("<div style=\"width: 500px; display: flex; flex-direction: column; margin: auto; margin-top: 40px;\">");
                 
                 //TODO FIX ORDER FORM ON SUBMIT
@@ -140,7 +181,7 @@ public class Checkout extends HttpServlet {
 "            </div>\n" +
 "            <div style=\"display: flex; flex-direction: column; width: 23%; margin-left: 46px;\">\n" +
 "                <label for=\"zip\">ZIP</label>\n" +
-"                <input type=\"text\" id=\"zip\" name=\"zip\" placeholder=\"92612\" onblur= \"updateZip(this.value)\"required>\n" +
+"                <input type=\"text\" id=\"zip\" name=\"zip\" placeholder=\"92612\" \"required>\n" +
 "            </div>\n" +
 "            <div style=\"display: flex; flex-direction: column; width: 33%; margin-left: 46px;\">\n" +
 "                <label for=\"country\">Country/Reigion</label>\n" +
@@ -170,20 +211,20 @@ public class Checkout extends HttpServlet {
 "            </div>\n" +
 "        </div>\n" +
 "\n" +
-"        <br><br>\n" +
-"        <!-- <input type=\"submit\" value=\"Submit\"> -->\n" +
+"        <br><br>" );
+                out.println(     
 "        <div style=\"font-size: 1.1rem\">\n" +
-"            <p>item(s): $<span id=\"itemTotal\">0</span></p>\n" +
+"            <p>item(s): $<span id=\"itemTotal\">" + totalItemCost +"</span></p>\n" +
 "            <p>tax: $<span id=\"taxTotal\">0</span></p>\n" +
 "            <p>shipping: $<span id=\"shippingTotal\">0</span></p>\n" +
 "        </div>\n" +
 "        \n" +
 "        <div style=\"display: flex; flex-direction: row;\">\n" +
 "            <p style=\"font-size: 1.7rem\" style=\"display: flex; flex-direction: column; width: 70%;\">Total: $<span id=\"totalPrice\">0</span></p>\n" +
-"        <input type=\"submit\" value=\"Order\" style=\"display: flex; flex-direction: column; width: 22%;  margin-right: 0\">\n" +
-"        </div>");
+"        <input type=\"submit\" value=\"Order\" style=\"display: flex; flex-direction: column; width: 22%;  margin-right: 0\">\n" );
+            out.println("</div>");
                 
-                out.println("</form>");
+            out.println("</form>");
                
             
             out.println("</div>");
@@ -191,6 +232,8 @@ public class Checkout extends HttpServlet {
             out.println("</html>");
             
             
+        } catch (SQLException ex) {
+            Logger.getLogger(Checkout.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
