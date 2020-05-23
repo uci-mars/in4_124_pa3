@@ -101,7 +101,7 @@ public class RecentItem extends HttpServlet {
                 out.println("<div style=\"margin-top: 120px\">\n");
                 out.println("<p style='color: white'>Session ID: " + s.getId() + "</p>");
                 out.println("<p style='color: white'>Session Creation Time: " + s.getCreationTime() + "</p>");
-                out.println("</div>")
+                out.println("</div>");
             }
             out.println("<table><tr id=\"result\"> ");
                 for (int i = recent.size(); i-- > 0; ) {

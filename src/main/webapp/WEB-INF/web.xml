@@ -16,6 +16,10 @@
         <servlet-name>RecentItem</servlet-name>
         <servlet-class>RecentItem</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>JeisPostCode</servlet-name>
+        <servlet-class>JeisPostCode</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ItemDetails</servlet-name>
         <url-pattern>/item</url-pattern>
@@ -32,6 +36,10 @@
     <servlet-mapping>
         <servlet-name>RecentItem</servlet-name>
         <url-pattern>/recentItem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JeisPostCode</servlet-name>
+        <url-pattern>/JeisPostCode</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
