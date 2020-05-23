@@ -30,6 +30,8 @@ public class RecentItem extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
                
         HttpSession s = request.getSession (true);
+        System.out.println(s.getId());
+        System.out.println(s.getCreationTime());
         ArrayList<String> recent = (ArrayList<String>) s.getAttribute("recent"); //adds id, amount to cart
 
         if(recent == null){
@@ -94,6 +96,12 @@ public class RecentItem extends HttpServlet {
                 out.println("<div style=\"margin-top: 120px\">\n" +
 "            <h2 class=\"page-title\">RECENTLY VIEWED</h2>\n" +
 "        </div>\n");
+            } else {
+                
+                out.println("<div style=\"margin-top: 120px\">\n");
+                out.println("<p style='color: white'>Session ID: " + s.getId() + "</p>");
+                out.println("<p style='color: white'>Session Creation Time: " + s.getCreationTime() + "</p>");
+                out.println("</div>")
             }
             out.println("<table><tr id=\"result\"> ");
                 for (int i = recent.size(); i-- > 0; ) {
