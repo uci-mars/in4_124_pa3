@@ -155,7 +155,7 @@ public class JeisPostCode extends HttpServlet {
                 }
             }
         }   catch (SQLException ex) {
-            Logger.getLogger(TestServlet.class.getName()).log(Level.SEVERE, null, ex);
+         
         }
     }
 

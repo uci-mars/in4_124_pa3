@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
     <servlet>
-        <servlet-name>TestServlet</servlet-name>
-        <servlet-class>TestServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Item</servlet-name>
-        <servlet-class>Item</servlet-class>
+        <servlet-name>ItemDetails</servlet-name>
+        <servlet-class>ItemDetails</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddToCart</servlet-name>
@@ -16,15 +12,14 @@
         <servlet-name>Checkout</servlet-name>
         <servlet-class>Checkout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RecentItem</servlet-name>
+        <servlet-class>RecentItem</servlet-class>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>TestServlet</servlet-name>
-        <url-pattern>/TestServlet</url-pattern>
-        <url-pattern>/about/TestServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Item</servlet-name>
-        <url-pattern>/Item</url-pattern>
-        <url-pattern>/products/Items</url-pattern>
+        <servlet-name>ItemDetails</servlet-name>
+        <url-pattern>/item</url-pattern>
+        <url-pattern>/products/item</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddToCart</servlet-name>
@@ -33,6 +28,10 @@
     <servlet-mapping>
         <servlet-name>Checkout</servlet-name>
         <url-pattern>/Checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RecentItem</servlet-name>
+        <url-pattern>/recentItem</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

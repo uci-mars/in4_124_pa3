@@ -85,7 +85,7 @@ public class Checkout extends HttpServlet {
                 
                 out.println("</div>     "
                         + "<div style=\"margin-top: 120px\">"); 
-                out.println("<h2 style=\"width: 100%; text-align: center; color: #f0e6d2; margin-bottom: 8px\">ORDER FORM</h2>\n" +
+                out.println("<h2 style=\"width: 100%; text-align: center; color: #f0e6d2; margin-bottom: 8px\">CHECKOUT</h2>\n" +
                     "        </div>");
                 
                 
@@ -107,7 +107,6 @@ public class Checkout extends HttpServlet {
                         String itemName = rs.getString("itemName");
                         String img = rs.getString("img");
                         int cost = rs.getInt("costs");
-                        out.println("<h3 style =\"text-align: center; color: #f0e6d2\"> Cart </h3>");
                         out.println("<tr>");
                             out.println("<td> <p style=\"text-align: center; color: #f0e6d2\" >" + itemName + "</p>");
                             out.println("<img src=\"" + request.getContextPath() + "/products/" + img + "\"><td>");
