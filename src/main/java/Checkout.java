@@ -58,14 +58,14 @@ public class Checkout extends HttpServlet {
                 out.println("<meta charset=\"UTF-8\">");
                 out.println(" <title>Checkout</title>");
                 out.println("<script type=\"text/javascript\" src=\"" + request.getContextPath() + "/order/form.js" + "\"></script>");
-                out.println("<link rel=\"stylesheet\" href=\"" + request.getContextPath() + "/order/order.css" + "\">");
+                //out.println("<link rel=\"stylesheet\" href=\"" + request.getContextPath() + "/order/order.css" + "\">");
                 out.println("<link rel=\"stylesheet\" href=\"" + request.getContextPath() + "/products/product.css" + "\">");
                 out.println("<link rel=\"stylesheet\" href=\"" + request.getContextPath() + "/navbar.css" + "\">");
             out.println("</head>");
             
                      
             out.println("<body onload = \"updateTotal()\">");
-            out.println("<div class=\"container\">");
+            out.println("<div class=\"container\" style=\"height: 0%; margin-bottom:30px;\">");
                 out.println("<div class=\"navbar\">");
                     out.println("<a href=\""+ request.getContextPath() + "\">");
                         out.println("<div class=\"logo-container\">");
@@ -86,7 +86,7 @@ public class Checkout extends HttpServlet {
                
                 
                 out.println("</div>     "
-                        + "<div style=\"margin-top: 120px\">"); 
+                        + "<div style=\"margin-top: 10px\">"); 
                 out.println("<h2 style=\"width: 100%; text-align: center; color: #f0e6d2; margin-bottom: 8px\">CHECKOUT</h2>\n" +
                     "        </div>");
                 
@@ -97,8 +97,8 @@ public class Checkout extends HttpServlet {
                 Connection conn = new SQLConnection().connect();
                 Statement statement = conn.createStatement();
                                
-                if(cart.size() == 0){
-                    out.println("<h3 style =\"text-align: center; color: #f0e6d2\"> Your cart is empty </h3>");
+                if(cart.isEmpty()){
+                    out.println("<h3 id=\"emptyCart\" style =\"text-align: center; color: #f0e6d2 ; margin-bottom: auto\"> Your cart is empty </h3>");
                 }else{
                     out.println("<table>");
                     //out.println("<tr> <th style =\" color: #f0e6d2\">item</th>\n <th style =\" color: #f0e6d2\">amount</th> </tr>");
@@ -124,10 +124,12 @@ public class Checkout extends HttpServlet {
                 statement.close();
                 SQLConnection.disconnect(conn);
                
-                out.println("<div style=\"width: 500px; display: flex; flex-direction: column; margin: auto; margin-top: 40px;\">");
+               
                 
-                //TODO FIX ORDER FORM ON SUBMIT
-                out.println("<form name=\"order\" onSubmit=\"return processPurchaseForm()\" method=\"post\">");
+                if(!cart.isEmpty())
+                {
+                     out.println("<div style=\"width: 500px; display: flex; flex-direction: column; margin: auto; margin-top: 40px;\">");
+                    out.println("<form name=\"order\" onSubmit=\"return processPurchaseForm()\" method=\"post\">");
                 
                 out.println("        <div style=\"display: flex; flex-direction: row; margin-bottom: 16px;\">\n" +
 "            <label style=\"margin: auto; margin-left: 0; margin-right: 12px\">Delivery Method </label>\n" +
@@ -216,7 +218,6 @@ public class Checkout extends HttpServlet {
                 out.println(     
 "        <div style=\"font-size: 1.1rem\">\n" +
 "            <p>item(s): $<span id=\"itemTotal\">" + totalItemCost +"</span></p>\n" +
-"            <p>tax: $<span id=\"taxTotal\">0</span></p>\n" +
 "            <p>shipping: $<span id=\"shippingTotal\">0</span></p>\n" +
 "        </div>\n" +
 "        \n" +
@@ -226,9 +227,12 @@ public class Checkout extends HttpServlet {
             out.println("</div>");
                 
             out.println("</form>");
+            out.println("</div>");
+                }
+                
                
             
-            out.println("</div>");
+            
             out.println("</body>");
             out.println("</html>");
             
