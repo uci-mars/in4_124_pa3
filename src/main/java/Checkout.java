@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -78,7 +79,7 @@ public class Checkout extends HttpServlet {
                         out.println("<a class=\"active\" href=\"" + request.getContextPath() + "/products" + "\">Our Products</a>");
                         out.println("<a href=\"" + request.getContextPath() + "/about"  + "\">About us</a>");
                         out.println("<a href=\"" + request.getContextPath() + "/about#team" + "\">Our Team</a>");
-                        out.println("<a href=\"" + request.getContextPath() + "/order" + "\"><img style=\"height: 20px\" src=\"" +request.getContextPath() + "/assets/images/cart.svg\"></a>");
+                        out.println("<a href=\"" + request.getContextPath() + "/Checkout" + "\"><img style=\"height: 20px\" src=\"" +request.getContextPath() + "/assets/images/cart.svg\"></a>");
                     out.println("</div>");
                 out.println("</div>");
                 
@@ -270,33 +271,30 @@ public class Checkout extends HttpServlet {
             // Get shopping cart info
             HttpSession s = request.getSession (true);
             HashMap<Integer, Integer> cart = (HashMap<Integer, Integer>) s.getAttribute("cart");
-            // cart = <Get Cart Data>;
             
             Connection conn = new SQLConnection().connect();
             PrintWriter out = response.getWriter();
             // Shipping Address: Street \n City, State Zip
             String[] shippingInformation = {request.getParameter("street"),request.getParameter("city"),request.getParameter("state"),request.getParameter("zip"),request.getParameter("country"),request.getParameter("phoneNum"),request.getParameter("ccard"),request.getParameter("exMonth"),request.getParameter("exYr"),request.getParameter("cvv")};
-            //int amount = Integer.parseInt(request.getParameter("quantity"));
             int amount = 0;
 
-            String cartstr = new String();
+            String cartstr = "";
             Statement cartstmt1 = conn.createStatement();
                     for (int itemId : cart.keySet()){
                         String query = "SELECT * FROM items WHERE itemId = " + itemId;
                         ResultSet rs = cartstmt1.executeQuery(query);
                         rs.next();
                         String itemName = rs.getString("itemName");
-                        cartstr += itemName;
+                        cartstr += "(" + itemName + "," + cart.get(itemId) + ")";
                         int cost = rs.getInt("costs");
-                        amount += cost;
+                        amount += cart.get(itemId);
                         rs.close();
                     }
             
             // Transaction architecture
             try {
-                
-                String sql = "INSERT INTO orders (itemid,amount,deliveryMethod,fullName,email,phoneNumber,streetAddress,city,stateName,zipCode,country,creditCardNumber,expirationMonth,expirationYear,cvv) VALUES(itemid=?,amount=?,deliveryMethod=?,fullName=?,email=?,phoneNumber=?,streetAddress=?,city=?,stateName=?,zipCode=?,country=?,creditCardNumber=?,expirationMonth=?,expirationYear=?,cvv=?)";
-                // out.println(sql);
+                String sql = "INSERT INTO orders (itemid,amount,deliveryMethod,fullName,email,phoneNumber,streetAddress,city,stateName,zipCode,country,creditCardNumber,expirationMonth,expirationYear,cvv) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                //out.println(sql);
                 PreparedStatement prepStmt = conn.prepareStatement(sql);
                 prepStmt.setString(1,cartstr);
                 prepStmt.setInt(2,amount);
@@ -315,7 +313,8 @@ public class Checkout extends HttpServlet {
                 prepStmt.setInt(15,Integer.parseInt(shippingInformation[9])); //cvv
                 //prepStmt.addBatch();
                 int i = prepStmt.executeUpdate();
-                out.println(i);
+                //out.println(i);
+                prepStmt.close();
                 
             } catch (Exception e) {
                 // If query execution fails, rollback db changes
@@ -323,73 +322,14 @@ public class Checkout extends HttpServlet {
                 out.println(e);
                 
             } finally {
-                
-                // Order Confirmations Page
-                
-                // Form HTML
-                    out.println("<!DOCTYPE html>");
-                    out.println("<html>");
-                    out.println("<head>");
-                    out.println("<meta charset=\"UTF-8\">");
-                    out.println(" <title>Checkout</title>");
-                    out.println("<script type=\"text/javascript\" src=\"" + request.getContextPath() + "/order/form.js" + "\"></script>");
-                    out.println("<link rel=\"stylesheet\" href=\"" + request.getContextPath() + "/order/order.css" + "\">");
-                    out.println("<link rel=\"stylesheet\" href=\"" + request.getContextPath() + "/products/product.css" + "\">");
-                    out.println("<link rel=\"stylesheet\" href=\"" + request.getContextPath() + "/navbar.css" + "\">");
-                    out.println("</head>");
-                    out.println("<table>");
-
-                out.println("<div class=\"navbar\">");
-                    out.println("<a href=\""+ request.getContextPath() + "\">");
-                        out.println("<div class=\"logo-container\">");
-                        out.println("<img id=\"logo\" src=\" " + request.getContextPath() + "/assets/images/ornn-logo.png\">");
-                        out.println("<h1 id=\"text-logo\">ORNN'S<br/>");
-                        out.println("<span style=\"font-size: 18px\">WORKSHOP</span></h1>");
-                        out.println("</div>");
-                    out.println("</a>");
-
-                    out.println("<div class=\"nav-container\">");
-                        out.println("<a class=\"active\" href=\"" + request.getContextPath() + "/products" + "\">Our Products</a>");
-                        out.println("<a href=\"" + request.getContextPath() + "/about"  + "\">About us</a>");
-                        out.println("<a href=\"" + request.getContextPath() + "/about#team" + "\">Our Team</a>");
-                        out.println("<a href=\"" + request.getContextPath() + "/order" + "\"><img style=\"height: 20px\" src=\"" +request.getContextPath() + "/assets/images/cart.svg\"></a>");
-                    out.println("</div>");
-
-                    out.println("</div>     "
-                            + "<div style=\"margin-top: 120px\">");
-                    out.println("<h2 style=\"width: 100%; text-align: center; color: #f0e6d2; margin-bottom: 8px\">CHECKOUT</h2>\n" + "        </div>");
-
-                    if(cart.size() == 0){
-                    out.println("<h3 style =\"text-align: center; color: #f0e6d2\"> Your cart is empty </h3>");
-                }else{
-                    out.println("<table>");
-                    //out.println("<tr> <th style =\" color: #f0e6d2\">item</th>\n <th style =\" color: #f0e6d2\">amount</th> </tr>");
-                    Statement cartstmt = conn.createStatement();
-                    int totalcost = 0;
-                    for (int itemId : cart.keySet()){
-                        String query = "SELECT * FROM items WHERE itemId = " + itemId;
-                        ResultSet rs = cartstmt.executeQuery(query);
-                        rs.next();
-                        String itemName = rs.getString("itemName");
-                        String img = rs.getString("img");
-                        int cost = rs.getInt("costs");
-                        totalcost += cost * cart.get(itemId);
-                        out.println("<tr>");
-                            out.println("<td> <p style=\"text-align: center; color: #f0e6d2\" >" + itemName + "</p>");
-                            out.println("<img src=\"" + request.getContextPath() + "/products/" + img + "\"><td>");
-                            out.println("<td><span id=\"product-cost\" style=\"color: white\">&nbsp; amount: " + cart.get(itemId) + "</span><td>");
-                        out.println("</tr>");
-                        rs.close();
-                    }
-                    out.println("<tr><td><span style =\"color: white\">Total Cost: $"+ totalcost +"</span></td></tr>");
-                    //out.println("<tr><td></td></tr>");
-                    out.println("</table>");
-                    
-                }
                 // close connection
                 if(conn != null) {
                     conn.close();
                 }
+                
+                // Forward to Order Confirmations Page
+                String destination = "/OrderConfirmation";
+                this.getServletContext().getRequestDispatcher(destination).forward(request, response);
             }
         }   catch (SQLException ex) {
          

@@ -20,7 +20,7 @@
     <body>
         <div class="container">
         <div class="navbar">
-            <a href"/in4_124_pa3">
+            <a href="/in4_124_pa3">
                 <div class="logo-container">
                     <img id="logo" src="assets/images/ornn-logo.png">
                     <h1 id="text-logo">ORNN'S<br/>
