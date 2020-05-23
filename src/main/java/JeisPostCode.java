@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class CheckOut extends HttpServlet {
+public class JeisPostCode extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -62,56 +62,44 @@ public class CheckOut extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        try {
-            
-            // DB creds
-            String USERNAME = "root";
-            String PASSWORD = "bl0b-39";
-            
+                try {
             // Response content type
             response.setContentType("text/html;charset=UTF-8");
             
-            // Form HTML
-            try (PrintWriter out = response.getWriter()) {
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<body>");
-                out.println("</body>");
-                out.println("</html>");
-            }
-            
             // Get shopping cart info
-            String cart = "\"Oracle Lens\",\"Warding Totem\",\"Berserker's Greaves\""; // Dummy Cart
+            HttpSession s = request.getSession (true);
+            HashMap<Integer, Integer> cart = (HashMap<Integer, Integer>) s.getAttribute("cart");
             // cart = <Get Cart Data>;
+            
+            Connection conn = new SQLConnection().connect();
             
             // Shipping Address: Street \n City, State Zip
             String[] shippingInformation = {request.getParameter("street"),request.getParameter("city"),request.getParameter("state"),request.getParameter("zip"),request.getParameter("country"),request.getParameter("phoneNum"),request.getParameter("ccard"),request.getParameter("exMonth"),request.getParameter("exYr"),request.getParameter("cvv")};
-            int amount = Integer.parseInt(request.getParameter("quantity"));
+            //int amount = Integer.parseInt(request.getParameter("quantity"));
+            int amount = 2;
             String deliveryMethod = request.getParameter("deliv");
             String fullName = request.getParameter("fname");
             String email = request.getParameter("email");
             
-            String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-            String SQL_URL = "circinus-39.ics.uci.edu:3306";
-            String DB = "s2020Iae";
-            try {
-                Class.forName(JDBC_DRIVER);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(CheckOut.class.getName()).log(Level.SEVERE, null, ex);
+            Connection conn2 = new SQLConnection().connect();
+            Statement cartstmt = conn2.createStatement();
+            String cartstr = new String();
+            
+            for (int itemId : cart.keySet()){
+                String query = "SELECT * FROM items WHERE itemId = " + itemId;
+                ResultSet rs = cartstmt.executeQuery(query);
+                rs.next();
+                String itemName = rs.getString("itemName");
+                cartstr += "," + itemName;
+                rs.close();
             }
-            Connection conn = DriverManager.getConnection(SQL_URL, USERNAME, PASSWORD);
+            
             // Transaction architecture
-            try {
-                // JDBC driver and SQL url
-                
-                
-                // Connection conn = DriverManager.getConnection(SQL_URL, USERNAME, PASSWORD);
-                
+            try {                
                 String sql = "INSERT INTO orders (cart,amount,deliveryMethod,fullName,email,phoneNumber,streetAddress,city,stateName,zipCode,country,creditCardNumber,expirationMonth,expirationYear,cvv) VALUES(cart=?,amount=?,deliveryMethod=?,fullName=?,email=?,phoneNumber=?,streetAddress=?,city=?,stateName=?,zipCode=?,country=?,creditCardNumber=?,expirationMonth=?,expirationYear=?,cvv=?)";
                 
                 PreparedStatement prepStmt = conn.prepareStatement(sql);
-                prepStmt.setString(1,cart);
+                prepStmt.setString(1,cartstr);
                 prepStmt.setInt(2,amount);
                 prepStmt.setString(3,deliveryMethod);
                 prepStmt.setString(4,fullName);
@@ -134,19 +122,31 @@ public class CheckOut extends HttpServlet {
                 conn.rollback();
                 
             } finally {
-                // Return query to get db records of orders
-                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM orders WHERE fullName=?");
-                stmt.setString(1,fullName);
-                ResultSet rs = stmt.executeQuery();
-                // Iterate through rs to print each order on conf page
                 
                 // Order Confirmations Page
+                
+                double totalItemCost = 0;
+                // Form HTML
                 try (PrintWriter out = response.getWriter()) {
-                    out.println("<!DOCTYPE html>");
-                    out.println("<html>");
-                    out.println("<body>");
-                    out.println("</body>");
-                    out.println("</html>");
+                    out.println("<table>");
+                        //out.println("<tr> <th style =\" color: #f0e6d2\">item</th>\n <th style =\" color: #f0e6d2\">amount</th> </tr>");
+                        for (int itemId : cart.keySet()){
+                            String query = "SELECT * FROM items WHERE itemId = " + itemId;
+                            ResultSet rs = cartstmt.executeQuery(query);
+                            rs.next();
+                            String itemName = rs.getString("itemName");
+                            String img = rs.getString("img");
+                            int cost = rs.getInt("costs");
+                            out.println("<h3 style =\"text-align: center; color: #f0e6d2\"> Cart </h3>");
+                            out.println("<tr>");
+                                out.println("<td> <p style=\"text-align: center; color: #f0e6d2\" >" + itemName + "</p>");
+                                out.println("<img src=\"" + request.getContextPath() + "/products/" + img + "\"><td>");
+                                out.println("<td><span id=\"product-cost\" style=\"color: white\">&nbsp; amount: " + cart.get(itemId) + "</span><td>");
+                            out.println("</tr>");
+                            totalItemCost += cost*cart.get(itemId);
+                            rs.close();
+                        }
+                        out.println("</table>");
                 }
                 
                 // close connection
