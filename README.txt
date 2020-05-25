@@ -15,12 +15,19 @@ Jeimeil Rey Mercado | 88963884 | jeimeilm@uci.edu
 
 ### Requirements:
 1) Last 5 items viewed appears on the product page
+	Link: http://localhost:8080/in4_124_pa3/products
+		Path: /in4_124_pa3/products
+	
+
 
 2) After clicking on a product, product info comes to DB, 
 	- can add to cart (session)
 	- cart session will be displayed on checkout
+	Example link: http://localhost:8080/in4_124_pa3/item?id=3
 
 3) Check out page (shopping cart icon or redirected after adding to cart)
 	- filling in the form will send the order and cart to SQLdb
 	- forwards servlet to confirm order (OrderConfirmation servlet)
+	Link: http://localhost:8080/in4_124_pa3/Checkout
+		*NOTE: order form will not show up (and you cannot place an order) if your cart is empty
 
