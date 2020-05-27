@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import com.s2020iae.in4_124_pa3.SQLConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;

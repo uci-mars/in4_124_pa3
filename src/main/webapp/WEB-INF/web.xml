@@ -20,6 +20,17 @@
         <servlet-name>OrderConfirmation</servlet-name>
         <servlet-class>OrderConfirmation</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TestServlet</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+        <param-name>jersey.config.server.provider.packages</param-name>
+        <!-- Specify the package where your Resource class is located-->
+        <!-- It it highly recommended that you use packages for this project. Since Todos
+        is my resource class and it is located in the com.uci.rest.package. I provide the following value-->
+        <param-value>com.s2020iae.in4_124_pa3</param-value>
+        </init-param>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ItemDetails</servlet-name>
         <url-pattern>/item</url-pattern>
@@ -42,9 +53,11 @@
         <url-pattern>/CheckOut/OrderConfirmation</url-pattern>
         <url-pattern>/OrderConfirmation</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TestServlet</servlet-name>
+        <url-pattern>/TestServlet/*</url-pattern>
+    </servlet-mapping>
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>30</session-timeout>
     </session-config>
 </web-app>

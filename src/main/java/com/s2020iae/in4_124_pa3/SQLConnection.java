@@ -1,3 +1,5 @@
+package com.s2020iae.in4_124_pa3;
+
 
 
 
@@ -8,17 +10,8 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author zhiyi
- */
 public class SQLConnection {
     
         
@@ -45,9 +38,42 @@ public class SQLConnection {
         } catch (SQLException ex) {
             Logger.getLogger(SQLConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     } 
+    
+    public ResultSet query(Connection conn, String sql)
+    {
+        Statement statement = null;
+        try {
+            statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            return rs;
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;      
+    }
+    /*
+    public void Insert(Connection conn, String sql)
+    {
+        
+    }
+    public void update(Connection conn, String sql, )
+    {
+        PreparedStatement statement = null;
+        try {
+            statement = conn.prepareStatement(sql);
+            statement.setInt(1, (Integer) param);
+            ResultSet resultSet = statement.executeQuery(sql);
+            return resultSet;
 
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+*/
     
     
 }
