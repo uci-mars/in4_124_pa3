@@ -1,26 +1,23 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 import com.s2020iae.in4_124_pa3.Items;
 import com.s2020iae.in4_124_pa3.ItemsService;
-import com.s2020iae.in4_124_pa3.SQLConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = {"/item"})
-public class ItemDetails extends HttpServlet {
+/**
+ *
+ * @author zhiyi
+ */
+public class testo2 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,31 +30,22 @@ public class ItemDetails extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String itemId = request.getParameter("id");
-
-        try {
-            Items itemREST = ItemsService.getItemById(Integer.parseInt(itemId));
-            Map<String, String> item = new HashMap<String, String>();
-
-            // Extract data from result set
-                   item.put("itemID", ""+itemREST.getItemID());
-                   item.put("itemName", itemREST.getItemName());
-                   item.put("img", itemREST.getImg());
-                   item.put("costs", ""+itemREST.getCost());
-                   item.put("itemDescription", itemREST.getItemDescription());
-                   item.put("category", itemREST.getCategory());
-               //TODO ADD STOCK
-                    //item.put("stock", itemREST.getStock());
-
-            request.setAttribute("item", item);
-
-            this.getServletContext().getRequestDispatcher("/products/item/index.jsp").forward(request, response);
-         } catch(Exception e) {
-            //Handle errors for Class.forName
-            e.printStackTrace();
-         }
-       }
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet testo2</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet testo2 at " + request.getContextPath() + "</h1>");
+            Items s = ItemsService.getItemById(3);
+            out.println("<p>" + s+ " </p>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

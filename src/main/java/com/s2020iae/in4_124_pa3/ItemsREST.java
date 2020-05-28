@@ -35,14 +35,14 @@ public class ItemsREST {
         try{
             
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM items WHERE itemID = " + id;
+            String sql = "SELECT * FROM pa4items WHERE itemID = " + id;
             ResultSet rs = stmt.executeQuery(sql);
             
             //TODO: EDIT SQL TO WHERE HAS STOCK 
            System.out.println("started");
             while(rs.next()){
                 i = new Items(id, rs.getString("itemName"),rs.getString("img") ,rs.getInt("costs"), 
-                        rs.getString("itemDescription"), rs.getString("category"), 0);//rs.getInt("stock"));
+                        rs.getString("itemDescription"), rs.getString("category"), rs.getInt("stock"));
                 System.out.println("there is next");
             }
             rs.close();
