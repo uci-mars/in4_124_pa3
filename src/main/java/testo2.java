@@ -41,7 +41,7 @@ public class testo2 extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Servlet testo2 at " + request.getContextPath() + "</h1>");
             Items s = ItemsService.getItemById(3);
-            out.println("<p>" + s+ " </p>");
+            out.println("<p>" + s.toTest()+ " </p>");
             out.println("</body>");
             out.println("</html>");
         }

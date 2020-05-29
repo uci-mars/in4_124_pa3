@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+
     <servlet>
         <servlet-name>ItemDetails</servlet-name>
         <servlet-class>ItemDetails</servlet-class>
@@ -21,19 +22,17 @@
         <servlet-class>OrderConfirmation</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>TestServlet</servlet-name>
-        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-        <init-param>
-            <param-name>jersey.config.server.provider.packages</param-name>
-            <!-- Specify the package where your Resource class is located-->
-            <!-- It it highly recommended that you use packages for this project. Since Todos
-        is my resource class and it is located in the com.uci.rest.package. I provide the following value-->
-            <param-value>com.s2020iae.in4_124_pa3</param-value>
-        </init-param>
-    </servlet>
-    <servlet>
         <servlet-name>testo2</servlet-name>
         <servlet-class>testo2</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>jersey-serlvet</servlet-name>
+         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+             <param-name>jersey.config.server.provider.packages</param-name>
+             <param-value>com.s2020iae.in4_124_pa3</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>ItemDetails</servlet-name>
@@ -58,13 +57,12 @@
         <url-pattern>/OrderConfirmation</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>TestServlet</servlet-name>
-        <url-pattern>/TestServlet</url-pattern>
-        <url-pattern>/TestServlet/*</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>testo2</servlet-name>
         <url-pattern>/testo2</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jersey-serlvet</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

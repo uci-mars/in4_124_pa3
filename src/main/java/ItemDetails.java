@@ -37,16 +37,18 @@ public class ItemDetails extends HttpServlet {
         String itemId = request.getParameter("id");
 
         try {
-            Items itemREST = ItemsService.getItemById(Integer.parseInt(itemId));
+            //Items itemREST = ItemsService.getItemById(Integer.parseInt(itemId));
             Map<String, String> item = new HashMap<String, String>();
 
             // Extract data from result set
+            /*
                    item.put("itemID", ""+itemREST.getItemID());
                    item.put("itemName", itemREST.getItemName());
                    item.put("img", itemREST.getImg());
                    item.put("costs", ""+itemREST.getCost());
                    item.put("itemDescription", itemREST.getItemDescription());
                    item.put("category", itemREST.getCategory());
+            */
                //TODO ADD STOCK
                     //item.put("stock", itemREST.getStock());
 

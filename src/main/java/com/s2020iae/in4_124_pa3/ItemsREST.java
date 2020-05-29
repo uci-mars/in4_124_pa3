@@ -17,19 +17,28 @@ import javax.ws.rs.core.Response;
 @Path("/item")
 public class ItemsREST {
     @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("/{id}")
+    public Response getItemByID(@PathParam("id") String id){
+        return Response.ok("hello " + id).build();
+    }
+   /* @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{id}")
+    @Path("/{id}")
     public Response getItemByID(@PathParam("id") int id){
+        System.out.println("getting");
         Items item = getItemById(id);
         if(item==null){
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.SEE_OTHER).build();
         }else{
             return Response.ok(item).build();
         }
     }
     
+    */
     
     public Items getItemById(int id){
+         System.out.println("getting by id id passed");
         Connection conn = new SQLConnection().connect();
          Items i = null;
         try{
@@ -51,7 +60,8 @@ public class ItemsREST {
         }catch(SQLException se){
             se.printStackTrace();
         }finally{
-            SQLConnection.disconnect(conn);
+            if(conn!=null)
+                SQLConnection.disconnect(conn);
             return i;
         }
     }

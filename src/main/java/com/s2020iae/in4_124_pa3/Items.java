@@ -1,13 +1,23 @@
 package com.s2020iae.in4_124_pa3;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class Items {
+    @XmlElement(name="itemID")
     private int itemID;
+    @XmlElement(name="itemName")
     private String itemName;
+    @XmlElement(name="img")
     private String img;
+    @XmlElement(name="cost")
     private int cost;
+    @XmlElement(name="itemDescription")
     private String itemDescription;
+    @XmlElement(name="category")
     private String category;
+    @XmlElement(name="stock")
     private int stock;
     
     public Items(int itemID, String itemName, String img, int cost, String itemDescription, String category,int stock){
@@ -39,5 +49,7 @@ public class Items {
     public void setItemDescription(String itemDescription){this.itemDescription = itemDescription;}
     public void setCategory(String category){this.category = category;}
     public void setStock(int stock){this.stock = stock;}
-    
+    public String toTest(){
+        return itemName + " " + itemDescription;
+    }
 }
